@@ -19,6 +19,7 @@ interface DataEntry {
 interface DataState {
   entries: DataEntry[];
   selectedSymbol: string;
+  isLoading?: boolean;
 }
 
 const initialState: DataState = {
@@ -39,6 +40,10 @@ const dataSlice = createSlice({
       state.selectedSymbol = action.payload;
       localStorage.setItem("selectedSymbol", action.payload);
     },
+    setLoading(state, action: PayloadAction<boolean>) {
+      state.isLoading = action.payload;
+      localStorage.setItem("isLoading", `${action.payload}`);
+    },
     loadEntriesFromLocalStorage(state) {
       const savedEntries = localStorage.getItem("entries");
       if (savedEntries) {
@@ -51,6 +56,10 @@ const dataSlice = createSlice({
         state.selectedSymbol = savedSymbol;
       }
     },
+    loadIsLoadingFromLocalStorage(state) {
+      const isLoading = localStorage.getItem("isLoading") || "false";
+      state.isLoading = Boolean(isLoading);
+    },
   },
 });
 
@@ -59,5 +68,7 @@ export const {
   setSelectedSymbol,
   loadEntriesFromLocalStorage,
   loadSelectedSymbolFromLocalStorage,
+  setLoading,
+  loadIsLoadingFromLocalStorage,
 } = dataSlice.actions;
 export default dataSlice.reducer;
