@@ -16,8 +16,8 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div>
-      <button onClick={handleOpenModal}>Change Stock or Crypto</button>
+    <div className='p-2'>
+      <button className='bg-orange-500 text-white px-2 py-1 rounded text-sm shadow-sm' onClick={handleOpenModal}>Change Stock or Crypto</button>
       <DataTable />
       <Modal isOpen={isModalOpen} onClose={handleCloseModal} />
     </div>
